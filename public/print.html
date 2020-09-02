@@ -1,0 +1,510 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>proc_macro.js</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> proc_macro.js</a></li><li class="chapter-item expanded "><a href="getting-started/index.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting-started/installation.html"><strong aria-hidden="true">2.1.</strong> Installation</a></li></ol></li><li class="chapter-item expanded "><a href="basics/index.html"><strong aria-hidden="true">3.</strong> Basics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="basics/macros.html"><strong aria-hidden="true">3.1.</strong> Macros</a></li><li class="chapter-item expanded "><a href="basics/tokenize.html"><strong aria-hidden="true">3.2.</strong> Tokenize</a></li><li class="chapter-item expanded "><a href="basics/parse.html"><strong aria-hidden="true">3.3.</strong> Parse</a></li></ol></li><li class="chapter-item expanded "><a href="build/index.html"><strong aria-hidden="true">4.</strong> Build</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="build/step-by-step.html"><strong aria-hidden="true">4.1.</strong> Step by Step</a></li><li class="chapter-item expanded "><a href="build/templates.html"><strong aria-hidden="true">4.2.</strong> Templates</a></li></ol></li><li class="chapter-item expanded "><a href="examples/index.html"><strong aria-hidden="true">5.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/javascript.html"><strong aria-hidden="true">5.1.</strong> JavaScript</a></li><li class="chapter-item expanded "><a href="examples/bee.html"><strong aria-hidden="true">5.2.</strong> Bee</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">proc_macro.js</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#proc_macrojs" id="proc_macrojs">proc_macro.js</a></h1>
+<p><strong>proc_macro.js</strong> is a JavaScript/TypeScript implementation of <a href="https://www.rust-lang.org/">Rust</a> procedural macros 🔥. The goal of this project is to combine the ideas from <a href="https://github.com/dtolnay/syn">syn</a>, <a href="https://github.com/dtolnay/quote">quote</a>, <a href="https://doc.rust-lang.org/proc_macro/">proc_macro</a>, and <a href="https://docs.rs/proc-macro2/1.0.19/proc_macro2/">proc_macro2</a> in one comprehensive parsing package.</p>
+<p>proc_macro.js is free and open source, you can find the source code on <a href="https://github.com/alexandre-lavoie/proc_macro.js">GitHub</a>. Issues and feature requests can be posted on the <a href="https://github.com/alexandre-lavoie/proc_macro.js/issues">GitHub issue tracker</a>.</p>
+<h2><a class="header" href="#limitations" id="limitations">Limitations</a></h2>
+<p>Unlike <a href="https://www.sweetjs.org/">sweet.js</a>, the goal is to write hygenic/unhygenic macros that require only vanilla JavaScript. This would allow to run this library anywhere. This comes with the caveat of JIT compilation and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">tagged templates</a>.</p>
+<h2><a class="header" href="#license" id="license">License</a></h2>
+<p>proc_macro.js is released under the <a href="https://github.com/alexandre-lavoie/proc_macro.js">MIT License</a>.</p>
+<h1><a class="header" href="#getting-started-" id="getting-started-">Getting Started 🎒</a></h1>
+<p>This chapter will cover:</p>
+<ul>
+<li>How to install the package.</li>
+</ul>
+<h1><a class="header" href="#installation-" id="installation-">Installation 💻</a></h1>
+<p>This package is currently being developed as a <a href="https://nodejs.org/en/">Node.js</a> package. You can install the package using the following <a href="https://www.npmjs.com/">npm</a> command:</p>
+<pre><code class="language-bash">npm install proc_macro --save
+</code></pre>
+<p>This package was not yet compiled to web JavaScript.</p>
+<p>The package could be ported to <a href="https://deno.land/">Deno</a> in the future.</p>
+<h1><a class="header" href="#basics-" id="basics-">Basics 📙</a></h1>
+<p>This chapter will cover:</p>
+<ul>
+<li>The basics of macros.</li>
+<li>The basics of tokenization.</li>
+<li>The basics of parsing.</li>
+</ul>
+<h1><a class="header" href="#macros-" id="macros-">Macros ⚙️</a></h1>
+<p>Macros are metaprogramming structures that convert usually smaller/comprehensive code into longer code. Programming languages implement these structures to allow for the Don't Repeat Yourself (DRY) principle. </p>
+<p>A common example of these are <code>constants</code> like <code>const PI = 3.141592...</code>. In compiled languages, the &quot;macro&quot; <code>PI</code> is replaced with the value of PI at compile time (instead of having to write the value of PI everywhere). </p>
+<p>This package uses the JIT compiler, therefore macros are interpreted at runtime. We still attempt to closely replicate the compilation/debugging of the <a href="https://doc.rust-lang.org/proc_macro/">proc_macro</a>s in <a href="https://www.rust-lang.org/">Rust</a>.</p>
+<h2><a class="header" href="#example" id="example">Example</a></h2>
+<p>Here is the use of an arbitrary <code>macro</code> macro:</p>
+<pre><code class="language-typescript">let v = eval(macro`ident, {}`);
+</code></pre>
+<h1><a class="header" href="#tokenize-" id="tokenize-">Tokenize 🔤</a></h1>
+<p>Tokenizing involves coverting plain code into a simpler representation for parsing. This packages converts all tokens into four types (TokenTree). This is similar to the <a href="https://www.rust-lang.org/">Rust</a> <a href="https://doc.rust-lang.org/proc_macro/">proc_macro</a> package:</p>
+<ul>
+<li><code>Indent</code>: An identifier (variable name, condition statements, etc) represented as a string.</li>
+<li><code>Punct</code>: A non-numeric/non-alpha character used to seperate inputs (addition, substraction, etc) which can be alone or joint.</li>
+<li><code>Literal</code>: A string or numeric value.</li>
+<li><code>Group</code>: A collection of tokens delimited by brackets, parentheses, or braces.</li>
+</ul>
+<p>Multiple tokens are collected in a <code>TokenStream</code> for parsing.</p>
+<h2><a class="header" href="#example-1" id="example-1">Example</a></h2>
+<p>The following input code:</p>
+<pre><code>x += 1;
+</code></pre>
+<p>Would convert to the following <code>TokenStream</code> (represented in Lisp like notation):</p>
+<pre><code>(TokenStream (Ident x) (Punct joint +) (Punct alone =) (Literal number 1) (Punct alone ;))
+</code></pre>
+<h1><a class="header" href="#parse-" id="parse-">Parse 🛥️</a></h1>
+<p>Parsing converts a <code>TokenStream</code> to commands. In compiled languages, this step usually outputs to Assembly. In the case of this package, code is converted back to JavaScript.</p>
+<p>The <code>TokenStream</code> class has useful functions to make parsing more efficient. </p>
+<h2><a class="header" href="#parsing" id="parsing">Parsing</a></h2>
+<p>The <code>parse</code> function can be used to extract token(s) from the stream (expected them to follow this pattern). You can use the function to extract a specific type:</p>
+<pre><code class="language-typescript">let [ident] = tokenStream.parse`${Ident}`;
+</code></pre>
+<p>You can parse a specific token using:</p>
+<pre><code class="language-typescript">tokenStream.parse`&lt;`;
+</code></pre>
+<p>You can combine multiple tokens into a single parse:</p>
+<pre><code class="language-typescript">let [ident, literal] = tokenStream.parse`let ${Ident} = ${Literal};`;
+</code></pre>
+<h2><a class="header" href="#peeking" id="peeking">Peeking</a></h2>
+<p>You can use the <code>peek</code> function to check if the following tokens has a certain pattern (similar uses as <code>parse</code>):</p>
+<pre><code class="language-typescript">if(tokenStream.peek`&lt;${Ident}&gt;&lt;/${Ident}`)) {
+    ...
+}
+</code></pre>
+<h2><a class="header" href="#error-handling" id="error-handling">Error handling</a></h2>
+<p>You can use the <code>error</code> function to throw more accurate debug errors:</p>
+<pre><code class="language-typescript">throw tokenStream.error(&quot;Expected `let`.&quot;);
+</code></pre>
+<p>Would lead to a debug similar to the following:</p>
+<pre><code>|
+|   const x = 1;
+|   ^
+|   |
+|   Expected `let`.
+|
+</code></pre>
+<h2><a class="header" href="#raw-stream-more-advanced" id="raw-stream-more-advanced">Raw stream (more advanced)</a></h2>
+<p>You can get the stream using <code>stream</code> which will let you navigate the raw tokens:</p>
+<pre><code class="language-typescript">for(let token of tokenStream.stream) {
+    ...
+}
+</code></pre>
+<p>You can then use <code>next</code> to extract the next raw token(s).</p>
+<h1><a class="header" href="#build-" id="build-">Build 🔨</a></h1>
+<p>This chapter will cover:</p>
+<ul>
+<li>A step by step from zero to macro.</li>
+<li>Template for building a macro.</li>
+</ul>
+<h1><a class="header" href="#step-by-step-" id="step-by-step-">Step by Step 👣</a></h1>
+<p>Building a macro involves having a relatively concrete idea of the source structure and resulting structure. If the source structure is already existent (<a href="https://google.github.io/styleguide/jsoncstyleguide.xml">JSON</a>, <a href="https://google.github.io/styleguide/htmlcssguide.html">HTML</a>, etc) there should already exist a style guide. If there doesn't already exist a style guide, we recommend that you take time to analyze the structures - even write a guide yourself if necessary. This will reduce the bugs during the parsing step. For this example, we will create a parser for the <code>bee</code> structure found in the examples.</p>
+<h2><a class="header" href="#bee-analysis-for-this-example" id="bee-analysis-for-this-example">Bee analysis (for this example)</a></h2>
+<p>The <code>bee</code> number system is defined like an integer where every number is replaced by a <code>b</code> followed by n &lt; 10 <code>e</code>s. For example, <code>be b bee beeee</code> would be <code>1024</code>. We would like to convert this &quot;esoteric&quot; code back to the integer. Therefore, for parsing, we should seperate the <code>bee...</code> and count the number of <code>e</code>s. We can then combine those counts to create the number value.</p>
+<h2><a class="header" href="#import" id="import">Import</a></h2>
+<p>This package includes all the necessary functions at the top module. Therefore, all the classes/values that you will need can be imported as follows:</p>
+<pre><code class="language-typescript">import { ... } from &quot;proc_macro&quot;;
+</code></pre>
+<p>The rest of the step be step will assume that the required classes are imported.</p>
+<h2><a class="header" href="#making-the-parsing-class" id="making-the-parsing-class">Making the Parsing Class</a></h2>
+<p>We recommend that you keep parsing classes in seperate files. They should also all be subclasses of <code>Expression</code>. In this example, a good parsing name could be <code>Bee</code>, therefore, we could create the following in <code>bee.ts</code>:</p>
+<pre><code class="language-typescript">export default class Bee extends Expression {
+    // Value is going to contain the integer value.
+    value: string
+
+    constructor(value: string) {
+        this.value = value;
+    }
+</code></pre>
+<p>Every <code>Expression</code> should override the <code>static parse</code> and the <code>toJavaScript</code> methods. Let's tackle the <code>parse</code> first. The function takes in a tokenized code and outputs <code>this</code> object:</p>
+<pre><code class="language-typescript">public static parse(ts: TokenStream): Bee {
+</code></pre>
+<p>Now, we need to make the logic for the parsing. Using the analysis from before, we expect identifiers until the <code>End</code> of stream therefore:</p>
+<pre><code class="language-typescript">let accumulator = &quot;&quot;;
+
+while(!(ts.peek`${End}`)) {
+</code></pre>
+<p>We can then try to parse the identifiers:</p>
+<pre><code class="language-typescript">let [bee] = ts.parse`${Ident}`;
+</code></pre>
+<p>We can use regex to determine if the identifier value is <code>bee...</code> else throw an error:</p>
+<pre><code class="language-typescript">if(!/^[Bb]e*$/.test(bee.value)) throw ts.error(&quot;Passed text is not bee.&quot;);
+</code></pre>
+<p>We expect also all <code>bee...</code> to have less than 10 <code>e</code> (due to integer definition):</p>
+<pre><code class="language-typescript">if(bee.value.length &gt; 10) throw ts.error(&quot;Bee should be smaller than 11 letters.&quot;);
+</code></pre>
+<p>Finally, we can add the number to the string number accumulator:</p>
+<pre><code class="language-typescript">accumulator += bee.value.length - 1;
+}
+</code></pre>
+<p>And return the Bee object:</p>
+<pre><code class="language-typescript">return new Bee(accumulator);
+}
+</code></pre>
+<p>We can then tackle the <code>toJavaScript</code> which in this case will simply return the value (you can use <code>quote</code> to remove the number of <code>toJavaScript</code> to use):</p>
+<pre><code class="language-typescript">public toJavaScript(): string {
+    return quote`${this.value}`;
+}
+}
+</code></pre>
+<h2><a class="header" href="#making-the-parsing-function" id="making-the-parsing-function">Making the Parsing Function</a></h2>
+<p>The parsing function will englobe the parsing objects. This should be in a main file like <code>index.ts</code>, not exported. Given we are already englobing everying with another object, the parsing function can be as simple as:</p>
+<pre><code class="language-typescript">const beeParser = (tokenStream: TokenStream): string =&gt; {
+    let [bee] = tokenStream.parse`${Bee}`; // or Bee.parse(tokenStream);
+    return bee.toJavaScript();
+}
+</code></pre>
+<h2><a class="header" href="#making-the-macro" id="making-the-macro">Making the Macro</a></h2>
+<p>The macro is simply the parsing function englobed by the <code>proc_macro</code> function. You can assign it to a const that is exported:</p>
+<pre><code class="language-typescript">export const bee = proc_macro(beeParser);
+</code></pre>
+<p>You should now be able to use the macro using the following structure (where <code>b</code> will become the output of the macro):</p>
+<pre><code class="language-typescript">let b = eval(bee`be b bee beeee`);
+
+// Should give `1024`!
+console.log(b);
+</code></pre>
+<p>Congrats, you now have a working macro 🎈. This said, it is possible that it fails...</p>
+<h2><a class="header" href="#testing" id="testing">Testing</a></h2>
+<p>You should really unit test your macros. You will often find that you failed to consider an edge case for your input (or simply validate your logic). <a href="https://jestjs.io/">Jest</a> is a great package to do so:</p>
+<pre><code>npm install --save-dev jest
+</code></pre>
+<p>You can then perform a unit test in a <code>.test.js</code> or <code>.test.ts</code> file:</p>
+<pre><code class="language-typescript">test(&quot;Bee ident should be less than 10 long.&quot;, () =&gt; {
+    expect(bee`beeeeeeeeee`).toThrow(Error);
+});
+</code></pre>
+<p>In this case, it could be possible that previous test failed, meaning your previous logic was incorrect. For this example, we could have written <code>bee.value.length &gt;= 10</code> previously.</p>
+<p>You should have unit tests for most of your edge cases. You might also want to look into a fuzzer package that can automate some of this process.</p>
+<p>You should now have a fully working macro 🎂. You should now be able to create your own macros using the templates. You can also look at more examples!</p>
+<h1><a class="header" href="#templates-" id="templates-">Templates 🏗️</a></h1>
+<p>Your macro will usually have at minimum the follow:</p>
+<h2><a class="header" href="#parsing-class" id="parsing-class">Parsing Class</a></h2>
+<p>A parsing class that will convert the tokens into a code (should be defined in it's own file, default exported):</p>
+<pre><code class="language-typescript">import { TokenStream, Expression } from &quot;proc_macro&quot;;
+
+export class Expr extends Expression {
+
+    // Parameters for type.
+
+    constructor(/* Params */) {
+        // Insert object parameters init.
+    }
+
+    public static parse(ts: TokenStream): Expr {
+        // Insert parsing logic.
+    }
+
+    public static toJavaScript(): string {
+        // Insert toJavaScript string logic.
+    }
+}
+</code></pre>
+<h2><a class="header" href="#parsing-function" id="parsing-function">Parsing Function</a></h2>
+<p>A function that will passed for the proc_macro (should be defined in a main file, not exported):</p>
+<pre><code class="language-typescript">import { proc_macro, TokenStream } from &quot;proc_macro&quot;;
+// import Expr from &quot;./expr.ts&quot;
+
+const exprParser = (tokenStream: TokenStream): string | TokenStream =&gt; {
+    // Insert parsing logic toJavaScript or toToken logic.
+
+    // let [expr] = tokenStream.parse`${Expr}`;
+    // return expr.toJavaScript();
+}
+</code></pre>
+<h2><a class="header" href="#macro" id="macro">Macro</a></h2>
+<p>You can put the macro after the parsing function (should be defined with parsing function, exported):</p>
+<pre><code class="language-typescript">export const expr = proc_macro(exprParser);
+</code></pre>
+<h1><a class="header" href="#examples-" id="examples-">Examples 👀</a></h1>
+<p>This chapter will cover simple and annotated uses of this package. This should give you a rough idea of the implementation of the package.</p>
+<h1><a class="header" href="#javascript-" id="javascript-">JavaScript 🟨</a></h1>
+<p>Parsing from JavaScript back to JavaScipt. This demonstrates the most simple parser (which doesn't parse at all).</p>
+<pre><code class="language-typescript">import { TokenStream, proc_macro } from &quot;proc_macro&quot;;
+
+const javaScriptParser = (tokenStream: TokenStream): TokenStream =&gt; {
+    return tokenStream;
+};
+
+const js = proc_macro(javaScriptParser);
+
+let j = eval(js`1 + 1`);
+
+// Should give `2`!
+console.log(j);
+</code></pre>
+<h1><a class="header" href="#bee-" id="bee-">Bee 🐝</a></h1>
+<p>Parsing bee number system where the number of <code>e</code> in <code>bee...</code> gives the number value. For example <code>be b bee beeee</code> = <code>1024</code>.</p>
+<pre><code class="language-typescript">import { Expression, TokenStream, End, Ident, proc_macro, quote } from &quot;proc_macro&quot;;
+
+// Defining Bee parsing object by extending Expression.
+class Bee extends Expression {
+    count: string;
+
+    constructor(count: string) {
+        super();
+        this.count = count;
+    }
+
+    // Must define the parse static method!
+    public static parse(ts: TokenStream): Bee {
+        let count = &quot;&quot;;
+
+        // Check if we reached end.
+        while(!ts.peek`${End}`) {
+            // If not, get next Ident.
+            let [bee] = ts.parse`${Ident}`;
+
+            // Check if the ident is bee.
+            if(!/^[Bb]e*$/.test(bee.value)) 
+                throw ts.error(&quot;Passed text is not bee.&quot;);
+
+            // Check if bee fits in the number system.
+            if(bee.value.length &gt; 10) 
+                throw ts.error(&quot;Bee should be smaller than 11 letters.&quot;);
+
+            count += bee.value.length - 1;
+        }
+
+        return new Bee(count);
+    }
+
+    public toJavaScript(): string {
+        // Quote tagged template makes tokenizing easier!
+        return quote`${this.count.toString()}`;
+    }
+}
+
+// Tempalte function to pass to proc_macro.
+const beeParser = (tokenStream: TokenStream): string =&gt; {
+    let bee = Bee.parse(tokenStream);
+    return bee.toJavaScript();
+}
+
+// Converts the parser to tagged template.
+const bee = proc_macro(beeParser);
+
+// Parse and eval...
+let b = eval(bee`be b bee beeee`);
+
+// Should give `1024`!
+console.log(b);
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
